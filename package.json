@@ -1,0 +1,43 @@
+{
+  "name": "ai-spell-check",
+  "displayName": "AI Spell Check",
+  "description": "AI-powered Grammarly-style spell and grammar assistant",
+  "version": "0.1.0",
+  "publisher": "hasan-dev",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "AI Spell Check",
+      "properties": {
+        "aiSpell.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for AI service"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/node-fetch": "^2.6.2",
+    "typescript": "^5.0.0",
+    "vscode": "^1.1.37"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
