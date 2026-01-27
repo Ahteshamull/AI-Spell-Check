@@ -71,8 +71,10 @@
     "vscode:prepublish": "npm run compile"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
     "@types/node": "^18.0.0",
-    "@types/vscode": "^1.80.0"
+    "@types/vscode": "^1.80.0",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^3.3.2",
+    "typescript": "^5.0.0"
   }
 }
