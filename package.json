@@ -1,8 +1,8 @@
 {
   "name": "ai-spell-check",
   "displayName": "AI Spell Check",
-  "description": "AI-powered Grammarly-style spell and grammar assistant",
-  "version": "0.1.0",
+  "description": "Free AI-powered spell & grammar checker with sidebar chat for VS Code",
+  "version": "1.0.0",
   "publisher": "hasan-dev",
   "icon": "icon.png",
   "engines": {
@@ -16,13 +16,52 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aiSpell",
+          "title": "AI Spell",
+          "icon": "icon.png"
+        }
+      ]
+    },
+    "views": {
+      "aiSpell": [
+        {
+          "id": "aiSpell.chatView",
+          "name": "AI Chat"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "aiSpell.sendSelectionToChat",
+        "title": "Send Selection to AI Chat"
+      }
+    ],
     "configuration": {
       "title": "AI Spell Check",
       "properties": {
         "aiSpell.apiKey": {
           "type": "string",
-          "default": "",
-          "description": "API key for AI service"
+          "default": ""
+        },
+        "aiSpell.tone": {
+          "type": "string",
+          "enum": [
+            "professional",
+            "casual",
+            "friendly"
+          ],
+          "default": "professional"
+        },
+        "aiSpell.ignoreWords": {
+          "type": "array",
+          "default": []
+        },
+        "aiSpell.autoFixOnSave": {
+          "type": "boolean",
+          "default": false
         }
       }
     }
@@ -32,12 +71,8 @@
     "vscode:prepublish": "npm run compile"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/node-fetch": "^2.6.2",
     "typescript": "^5.0.0",
-    "vscode": "^1.1.37"
-  },
-  "dependencies": {
-    "node-fetch": "^2.7.0"
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0"
   }
 }

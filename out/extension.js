@@ -36,11 +36,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = activate;
 exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
-const codeActions_1 = require("./codeActions");
+const quickFix_1 = require("./features/quickFix");
+const autoFixOnSave_1 = require("./features/autoFixOnSave");
+const sidePanel_1 = require("./ui/sidePanel");
 function activate(context) {
-    context.subscriptions.push(vscode.languages.registerCodeActionsProvider("*", new codeActions_1.AIFixProvider(), {
-        providedCodeActionKinds: [vscode.CodeActionKind.QuickFix],
+    const sidebar = new sidePanel_1.AISidebarProvider();
+    context.subscriptions.push(vscode.window.registerWebviewViewProvider(sidePanel_1.AISidebarProvider.viewType, sidebar));
+    context.subscriptions.push(vscode.commands.registerCommand("aiSpell.sendSelectionToChat", () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor)
+            return;
+        sidebar.send(editor.document.getText(editor.selection));
     }));
+    (0, quickFix_1.registerQuickFix)(context);
+    (0, autoFixOnSave_1.registerAutoFixOnSave)(context);
 }
 function deactivate() { }
-//# sourceMappingURL=extension.js.map
